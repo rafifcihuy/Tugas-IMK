@@ -1,0 +1,63 @@
+/* extra.css — gaya tambahan untuk tautan/tombol dan halaman baru LumaWave */
+
+/* Perbaikan: sidebar tampil di >900px tapi margin bawaan baru aktif di >=1024px */
+@media (min-width: 901px) { body .main-area { margin-left: 248px; } }
+
+/* Menu sidebar */
+body .nav-item {
+  position: relative; display: flex; align-items: center; gap: .75rem;
+  padding: .75rem; border-radius: .75rem; color: #d9c5ff; font-size: 15px; text-decoration: none;
+  transition: background .2s, color .2s, transform .2s;
+}
+body .nav-item:hover { background: rgba(255, 255, 255, .07); color: #fff; transform: translateX(3px); }
+body .nav-item[aria-current="page"] { background: rgba(255, 255, 255, .12); color: #fff; font-weight: 700; }
+body .nav-item[aria-current="page"]::before {
+  content: ""; position: absolute; left: 0; top: 22%; bottom: 22%; width: 3px; border-radius: 3px;
+  background: linear-gradient(#f2b8ff, #8f5cff);
+}
+
+/* Playlist di sidebar */
+body .pl-link {
+  display: block; padding: .5rem .75rem; border-radius: .5rem; color: #d9c5ff; font-size: 15px; text-decoration: none;
+  transition: background .2s, color .2s;
+}
+body .pl-link:hover { background: rgba(255, 255, 255, .07); color: #fff; }
+
+/* Tab kategori */
+body .tab-link {
+  display: inline-block; padding: .5rem 1rem; border-radius: 999px; white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, .1); background: rgba(255, 255, 255, .05);
+  color: #d9c5ff; font-size: 15px; text-decoration: none; transition: background .2s, color .2s, transform .2s;
+}
+body .tab-link:hover { background: rgba(255, 255, 255, .12); color: #fff; transform: translateY(-1px); }
+body .tab-link[aria-current="page"] { background: #fff; border-color: #fff; color: #4b2470; font-weight: 700; }
+
+/* Tautan "Lihat semua" */
+body .see-all { color: #d9aaff; font-weight: 700; font-size: 15px; padding: .5rem .75rem; border-radius: 999px; text-decoration: none; transition: background .2s; }
+body .see-all::after { content: " \2192"; }
+body .see-all:hover { background: rgba(255, 255, 255, .08); }
+
+/* Navigasi seluler */
+body .mnav { display: grid; place-items: center; min-width: 44px; min-height: 44px; border-radius: .75rem; color: #c8b6ea; }
+body .mnav[aria-current="page"] { color: #fff; background: rgba(255, 255, 255, .12); }
+
+body a:focus-visible { outline: 3px solid #e3c8ff; outline-offset: 3px; }
+
+/* Halaman baru */
+.page-title { font-family: "Fraunces", serif; font-weight: 700; font-size: 26px; color: #fff; }
+.page-sub { margin-top: .25rem; color: #a99cc6; font-size: 15px; }
+body .tile {
+  display: flex; align-items: flex-end; min-height: 110px; padding: 1rem; border-radius: 1.25rem;
+  font-weight: 700; font-size: 18px; color: #fff; text-decoration: none;
+  background: linear-gradient(135deg, var(--a), var(--b)); border: 1px solid rgba(255, 255, 255, .12);
+  transition: transform .25s, box-shadow .25s;
+}
+body .tile:hover { transform: translateY(-4px); box-shadow: 0 16px 30px rgba(4, 0, 20, .4); }
+.row-track { display: grid; grid-template-columns: 32px 1fr auto; gap: 12px; align-items: center; padding: .75rem 1rem; border-radius: .75rem; transition: background .2s; }
+.row-track:hover { background: rgba(255, 255, 255, .07); }
+.row-track small { display: block; color: #a99cc6; }
+.row-track .no, .row-track .dur { color: #a99cc6; font-size: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  body .nav-item, body .tab-link, body .tile { transition: none; transform: none !important; }
+}
