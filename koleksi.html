@@ -1,13 +1,8 @@
 <!doctype html>
-<html lang="id">
-
-<head>
-  <meta charset="UTF-8">
+<html lang="id"><head><meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Koleksi — LumaWave</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #160d2d;
@@ -18,17 +13,8 @@
       --magenta: #ec4fc8;
       --muted: #a99cc6;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "DM Sans", sans-serif;
-      color: #f8f5ff;
-      overflow-x: hidden;
-    }
-
+    * { box-sizing: border-box; }
+    body { font-family: "DM Sans", sans-serif; color: #f8f5ff; overflow-x: hidden; }
     .app-shell {
       width: 100%;
       min-height: calc(100 * min(var(--vh, 1vh), 1vh));
@@ -37,476 +23,127 @@
         radial-gradient(circle at 8% 80%, rgba(216, 70, 190, .13), transparent 30rem),
         #160d2d;
     }
-
-    .glass {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      backdrop-filter: blur(18px);
-    }
-
-    .sidebar {
-      width: 248px;
-    }
-
-    .main-area {
-      padding-bottom: 130px;
-    }
-
+    .glass { background: var(--panel); border: 1px solid var(--line); backdrop-filter: blur(18px); }
+    .sidebar { width: 248px; }
+    .main-area { padding-bottom: 130px; }
     .hero {
       min-height: 395px;
       overflow: hidden;
       position: relative;
       isolation: isolate;
     }
-
     .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
+      content: ""; position: absolute; inset: 0; z-index: -1;
       background: linear-gradient(90deg, rgba(21, 11, 48, .96) 2%, rgba(26, 12, 53, .68) 48%, rgba(31, 12, 56, .12) 100%);
     }
-
-    .hero-image {
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: .8;
-    }
-
+    .hero-image { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; opacity: .8; }
     .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
+      width: 38px; height: 38px; border-radius: 14px;
+      display: grid; place-items: center;
       background: linear-gradient(135deg, #d761d8, #7657ff);
       box-shadow: 0 10px 24px rgba(131, 76, 255, .38);
     }
-
-    .wave-bars {
-      height: 48px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .wave-bars span {
-      width: 4px;
-      border-radius: 99px;
-      background: linear-gradient(#f2b8ff, #875bff);
-      height: 12px;
-    }
-
-    .is-playing .wave-bars span {
-      animation: pulseWave .8s ease-in-out infinite alternate;
-    }
-
-    .is-playing .wave-bars span:nth-child(2n) {
-      animation-delay: .2s;
-    }
-
-    .is-playing .wave-bars span:nth-child(3n) {
-      animation-delay: .45s;
-    }
-
-    @keyframes pulseWave {
-      from {
-        height: 8px;
-        opacity: .55;
-      }
-
-      to {
-        height: 46px;
-        opacity: 1;
-      }
-    }
-
-    .album-card,
-    .video-card {
-      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-    }
-
-    .album-card:hover,
-    .video-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(221, 191, 255, .55);
-    }
-
-    .album-card.active {
-      border-color: #d9b7ff;
-      box-shadow: 0 0 0 2px rgba(192, 130, 255, .28), 0 18px 35px rgba(4, 0, 20, .38);
-    }
-
-    .album-card.active .album-select {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .album-select {
-      opacity: 0;
-      transform: scale(.75);
-      transition: .2s ease;
-    }
-
-    .control-button {
-      transition: transform .18s ease, background .18s ease;
-    }
-
-    .control-button:hover {
-      transform: scale(1.07);
-    }
-
-    .progress-track {
-      cursor: pointer;
-    }
-
-    .progress-fill {
-      width: 22%;
-      transition: width .2s linear;
-    }
-
-    .notice {
-      opacity: 0;
-      transform: translateY(12px);
-      pointer-events: none;
-      transition: .25s ease;
-    }
-
-    .notice.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    input[type="range"] {
-      accent-color: #bd82ff;
-    }
-
-    button:focus-visible,
-    input:focus-visible {
-      outline: 3px solid #e3c8ff;
-      outline-offset: 3px;
-    }
-
-    .reveal {
-      animation: reveal .6s both;
-    }
-
-    @keyframes reveal {
-      from {
-        opacity: 0;
-        transform: translateY(16px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
+    .wave-bars { height: 48px; display: flex; align-items: center; gap: 4px; }
+    .wave-bars span { width: 4px; border-radius: 99px; background: linear-gradient(#f2b8ff, #875bff); height: 12px; }
+    .is-playing .wave-bars span { animation: pulseWave .8s ease-in-out infinite alternate; }
+    .is-playing .wave-bars span:nth-child(2n) { animation-delay: .2s; }
+    .is-playing .wave-bars span:nth-child(3n) { animation-delay: .45s; }
+    @keyframes pulseWave { from { height: 8px; opacity: .55; } to { height: 46px; opacity: 1; } }
+    .album-card, .video-card { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+    .album-card:hover, .video-card:hover { transform: translateY(-5px); border-color: rgba(221, 191, 255, .55); }
+    .album-card.active { border-color: #d9b7ff; box-shadow: 0 0 0 2px rgba(192, 130, 255, .28), 0 18px 35px rgba(4, 0, 20, .38); }
+    .album-card.active .album-select { opacity: 1; transform: scale(1); }
+    .album-select { opacity: 0; transform: scale(.75); transition: .2s ease; }
+    .control-button { transition: transform .18s ease, background .18s ease; }
+    .control-button:hover { transform: scale(1.07); }
+    .progress-track { cursor: pointer; }
+    .progress-fill { width: 22%; transition: width .2s linear; }
+    .notice { opacity: 0; transform: translateY(12px); pointer-events: none; transition: .25s ease; }
+    .notice.show { opacity: 1; transform: translateY(0); }
+    input[type="range"] { accent-color: #bd82ff; }
+    button:focus-visible, input:focus-visible { outline: 3px solid #e3c8ff; outline-offset: 3px; }
+    .reveal { animation: reveal .6s both; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 900px) {
-      .sidebar {
-        display: none;
-      }
-
-      .main-area {
-        padding-bottom: 162px;
-      }
-
-      .player-inner {
-        grid-template-columns: 1fr !important;
-        gap: 10px;
-      }
-
-      .player-extra {
-        display: none;
-      }
+      .sidebar { display: none; }
+      .main-area { padding-bottom: 162px; }
+      .player-inner { grid-template-columns: 1fr !important; gap: 10px; }
+      .player-extra { display: none; }
     }
-
     @media (max-width: 640px) {
-      .hero {
-        min-height: 455px;
-      }
-
-      .hero::after {
-        background: linear-gradient(0deg, rgba(21, 11, 48, .98), rgba(31, 12, 56, .22));
-      }
-
-      .album-row,
-      .video-row {
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        padding-bottom: 10px;
-      }
-
-      .album-card {
-        min-width: 160px;
-        scroll-snap-align: start;
-      }
-
-      .video-card {
-        min-width: 235px;
-        scroll-snap-align: start;
-      }
-
-      .mobile-nav {
-        display: flex !important;
-      }
-
-      .desktop-tabs {
-        overflow-x: auto;
-      }
+      .hero { min-height: 455px; }
+      .hero::after { background: linear-gradient(0deg, rgba(21, 11, 48, .98), rgba(31, 12, 56, .22)); }
+      .album-row, .video-row { overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; }
+      .album-card { min-width: 160px; scroll-snap-align: start; }
+      .video-card { min-width: 235px; scroll-snap-align: start; }
+      .mobile-nav { display: flex !important; }
+      .desktop-tabs { overflow-x: auto; }
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
   <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
   <link rel="stylesheet" href="extra.css">
 </head>
-
-<body data-template-id="__page-root" style="background: rgb(22, 13, 45);">
+ <body data-template-id="__page-root" style="background: rgb(22, 13, 45);">
   <div class="app-shell flex">
-    <aside class="sidebar glass fixed inset-y-0 left-0 z-30 flex flex-col p-5">
-      <header class="flex items-center gap-3 px-2">
-        <div class="brand-mark" aria-hidden="true">
-          <i data-lucide="waves" class="w-5 h-5"></i>
-        </div>
-        <h1 data-template-id="brand-name" class="canva-text font-bold tracking-tight"
-          style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 22px;">LumaWave</h1>
-      </header>
-      <nav class="mt-10" aria-label="Navigasi utama">
-        <p data-template-id="menu-label" class="canva-text mb-3 px-3 text-xs uppercase tracking-[.18em]"
-          style="color: rgb(169, 156, 198); font-weight: 700; font-style: normal; font-size: 15px;">Menu</p>
-        <div class="space-y-1"><a href="index.html" class="nav-item"><i data-lucide="home"
-              class="w-4 h-4"></i><span>Beranda</span></a><a href="jelajahi.html" class="nav-item"><i
-              data-lucide="compass" class="w-4 h-4"></i><span>Jelajahi</span></a><a href="koleksi.html"
-            class="nav-item"><i data-lucide="library" class="w-4 h-4"></i><span>Koleksi</span></a><a
-            href="video-musik.html" class="nav-item"><i data-lucide="clapperboard" class="w-4 h-4"></i><span>Video
-              Musik</span></a></div>
-      </nav>
-      <section class="mt-9" aria-labelledby="playlist-title">
-        <h2 id="playlist-title" data-template-id="playlist-label"
-          class="canva-text mb-3 px-3 text-xs uppercase tracking-[.18em]"
-          style="color: rgb(169, 156, 198); font-weight: 700; font-style: normal; font-size: 23px;">Playlist Kamu</h2>
-        <div class="space-y-1"><a class="pl-link" href="koleksi.html#senja-elektrik">Senja Elektrik</a><a
-            class="pl-link" href="koleksi.html#ruang-hening">Ruang Hening</a><a class="pl-link"
-            href="koleksi.html#pukul-2-pagi">Pukul 2 Pagi</a></div>
-      </section>
-      <div data-template-id="sidebar-promo" class="canva-panel mt-auto rounded-2xl p-4"
-        style="background: linear-gradient(135deg, rgb(85, 52, 129), rgb(43, 27, 82));"><i data-lucide="sparkles"
-          class="mb-3 w-5 h-5 text-fuchsia-200"></i>
-        <p data-template-id="promo-title" class="canva-text font-semibold"
-          style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 15px;">Ruang dengar tanpa
-          batas</p>
-        <p data-template-id="promo-copy" class="canva-text mt-1 text-xs leading-relaxed"
-          style="color: rgb(217, 197, 255); font-weight: 400; font-style: normal; font-size: 15px;">Temukan ritme yang
-          menyesuaikan malam kamu.</p>
-      </div>
-    </aside>
-    <main class="main-area w-full lg:ml-[248px]">
-      <div class="mx-auto w-full max-w-[1480px] px-5 py-5 sm:px-8">
-        <header class="flex flex-wrap items-center justify-between gap-4 py-2"><label
-            class="relative block w-full max-w-md"> <span class="sr-only">Cari lagu, artis, atau album</span> <i
-              data-lucide="search" class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-violet-200/60"></i>
-            <input id="search" data-template-id="search-input"
-              class="canva-input w-full rounded-2xl border border-white/10 bg-white/5 py-3 pl-11 pr-4 text-sm text-white placeholder:text-violet-100/45 focus:border-violet-300/60 focus:bg-white/10"
-              type="search" placeholder="Cari lagu, artis, atau album..."
-              style="font-weight: 400; font-style: normal; font-size: 15px;"> </label>
-          <div data-template-id="profile-chip" class="canva-tag flex items-center gap-2 rounded-full px-3 py-2 text-sm"
-            style="background: rgba(255, 255, 255, 0.08);"><span
-              class="grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-fuchsia-300 to-violet-500 font-bold text-[#261244]">N</span>
-            <span data-template-id="profile-name" class="canva-text"
-              style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 15px;">Nadia</span>
-          </div>
-        </header>
-        <nav class="desktop-tabs mt-6 flex gap-3" aria-label="Kategori musik"><a class="tab-link"
-            href="index.html">Untuk Anda</a><a class="tab-link" href="jelajahi.html#terbaru">Terbaru</a><a
-            class="tab-link" href="video-musik.html">Video Musik</a></nav>
-        <section id="senja-elektrik" class="mt-10 scroll-mt-6">
-          <h2 class="page-title">Senja Elektrik</h2>
-          <p class="page-sub">Synth hangat untuk sore hari.</p>
-          <div class="mt-4">
-            <div class="row-track"><span class="no">1</span><span><b>Neon Drift</b><small>Nara Vale</small></span><span
-                class="dur">3:48</span></div>
-            <div class="row-track"><span class="no">2</span><span><b>Velvet Signals</b><small>Eka
-                  Rumi</small></span><span class="dur">4:05</span></div>
-            <div class="row-track"><span class="no">3</span><span><b>Orbiting You</b><small>Aira Sol</small></span><span
-                class="dur">3:31</span></div>
-            <div class="row-track"><span class="no">4</span><span><b>Prism Hours</b><small>Mika
-                  Aster</small></span><span class="dur">4:22</span></div>
-          </div>
-        </section>
-        <section id="ruang-hening" class="mt-10 scroll-mt-6">
-          <h2 class="page-title">Ruang Hening</h2>
-          <p class="page-sub">Tenang untuk fokus dan bernapas.</p>
-          <div class="mt-4">
-            <div class="row-track"><span class="no">1</span><span><b>Prism Hours</b><small>Mika
-                  Aster</small></span><span class="dur">4:22</span></div>
-            <div class="row-track"><span class="no">2</span><span><b>Orbiting You</b><small>Aira Sol</small></span><span
-                class="dur">3:31</span></div>
-            <div class="row-track"><span class="no">3</span><span><b>Velvet Signals</b><small>Eka
-                  Rumi</small></span><span class="dur">4:05</span></div>
-            <div class="row-track"><span class="no">4</span><span><b>Neon Drift</b><small>Nara Vale</small></span><span
-                class="dur">3:48</span></div>
-          </div>
-        </section>
-        <section id="pukul-2-pagi" class="mt-10 scroll-mt-6">
-          <h2 class="page-title">Pukul 2 Pagi</h2>
-          <p class="page-sub">Teman begadang dan ide larut malam.</p>
-          <div class="mt-4">
-            <div class="row-track"><span class="no">1</span><span><b>Velvet Signals</b><small>Eka
-                  Rumi</small></span><span class="dur">4:05</span></div>
-            <div class="row-track"><span class="no">2</span><span><b>Orbiting You</b><small>Aira Sol</small></span><span
-                class="dur">3:31</span></div>
-            <div class="row-track"><span class="no">3</span><span><b>Prism Hours</b><small>Mika
-                  Aster</small></span><span class="dur">4:22</span></div>
-            <div class="row-track"><span class="no">4</span><span><b>Neon Drift</b><small>Nara Vale</small></span><span
-                class="dur">3:48</span></div>
-          </div>
-        </section>
-      </div>
-    </main>
-    <footer class="glass fixed bottom-0 left-0 z-40 w-full border-x-0 border-b-0 px-4 py-3 sm:px-7">
-      <div class="player-inner mx-auto grid max-w-[1450px] grid-cols-[1fr_auto_1fr] items-center gap-5">
-        <div class="flex min-w-0 items-center gap-3">
-          <img id="playerArtwork" data-template-id="player-artwork" loading="lazy"
-            class="canva-image h-12 w-12 rounded-xl object-cover"
-            src="https://images.pexels.com/photos/3075993/pexels-photo-3075993.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400"
-            alt="Pemandangan kota malam bercahaya di bawah langit berbintang">
-          <div class="min-w-0">
-            <p id="playerSong" class="truncate text-sm font-bold">Neon Drift</p>
-            <p id="playerArtist" class="truncate text-xs text-violet-200/70">Nara Vale</p>
-          </div><button id="playerLike" type="button" class="ml-1 text-violet-100/70 hover:text-fuchsia-200"
-            aria-label="Sukai lagu"><i data-lucide="heart" class="heart-icon h-4 w-4"></i></button>
-        </div>
-        <div class="flex flex-col items-center gap-2">
-          <div class="flex items-center gap-4">
-            <button id="previousButton" class="control-button" type="button" aria-label="Lagu sebelumnya"><i
-                data-lucide="skip-back" class="h-4 w-4 fill-current"></i></button><button id="mainPlay" type="button"
-              class="control-button grid h-10 w-10 place-items-center rounded-full bg-white text-[#4b2470]"
-              aria-label="Putar atau jeda"><i data-lucide="play" class="play-icon h-4 w-4 fill-current"></i><i
-                data-lucide="pause" class="pause-icon hidden h-4 w-4 fill-current"></i></button><button id="nextButton"
-              class="control-button" type="button" aria-label="Lagu berikutnya"><i data-lucide="skip-forward"
-                class="h-4 w-4 fill-current"></i></button>
-          </div>
-          <div class="flex w-[200px] items-center gap-2 text-[10px] text-violet-200/65">
-            <span id="elapsed">0:42</span>
-            <div id="progressTrack" class="progress-track h-1.5 flex-1 overflow-hidden rounded-full bg-white/15"
-              role="slider" aria-label="Posisi lagu" aria-valuemin="0" aria-valuemax="100" aria-valuenow="22"
-              tabindex="0">
-              <div id="progressFill"
-                class="progress-fill h-full rounded-full bg-gradient-to-r from-fuchsia-300 to-violet-400"></div>
-            </div><span>3:48</span>
-          </div>
-        </div>
-        <div class="player-extra flex justify-end gap-3">
-          <i data-lucide="volume-2" class="h-4 w-4 text-violet-200/75"></i><label class="sr-only"
-            for="volume">Volume</label><input id="volume" type="range" min="0" max="100" value="72" class="w-24"><button
-            type="button" aria-label="Buka antrean" class="control-button"><i data-lucide="list-music"
-              class="h-5 w-5"></i></button>
-        </div>
-      </div>
-    </footer>
-    <nav
-      class="mobile-nav glass fixed bottom-[88px] left-1/2 z-30 hidden w-[calc(100%-32px)] -translate-x-1/2 items-center justify-around rounded-2xl px-3 py-2"
-      aria-label="Navigasi seluler"><a href="index.html" class="mnav" aria-label="Beranda"><i data-lucide="home"
-          class="h-5 w-5"></i></a><a href="jelajahi.html" class="mnav" aria-label="Jelajahi"><i data-lucide="compass"
-          class="h-5 w-5"></i></a><a href="koleksi.html" class="mnav" aria-label="Koleksi"><i data-lucide="library"
-          class="h-5 w-5"></i></a><a href="video-musik.html" class="mnav" aria-label="Video Musik"><i
-          data-lucide="clapperboard" class="h-5 w-5"></i></a>
+   <aside class="sidebar glass fixed inset-y-0 left-0 z-30 flex flex-col p-5">
+    <header class="flex items-center gap-3 px-2">
+     <div class="brand-mark" aria-hidden="true">
+      <i data-lucide="waves" class="w-5 h-5"></i>
+     </div>
+     <h1 data-template-id="brand-name" class="canva-text font-bold tracking-tight" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 22px;">LumaWave</h1>
+    </header>
+    <nav class="mt-10" aria-label="Navigasi utama">
+     <p data-template-id="menu-label" class="canva-text mb-3 px-3 text-xs uppercase tracking-[.18em]" style="color: rgb(169, 156, 198); font-weight: 700; font-style: normal; font-size: 15px;">Menu</p>
+     <div class="space-y-1"><a href="index.html" class="nav-item"><i data-lucide="home" class="w-4 h-4"></i><span>Beranda</span></a><a href="jelajahi.html" class="nav-item"><i data-lucide="compass" class="w-4 h-4"></i><span>Jelajahi</span></a><a href="koleksi.html" class="nav-item"><i data-lucide="library" class="w-4 h-4"></i><span>Koleksi</span></a><a href="video-musik.html" class="nav-item"><i data-lucide="clapperboard" class="w-4 h-4"></i><span>Video Musik</span></a></div>
     </nav>
-    <div id="notice"
-      class="notice fixed bottom-36 left-1/2 z-50 -translate-x-1/2 rounded-full border border-white/15 bg-[#3c2163] px-4 py-2 text-sm shadow-xl"
-      role="status"></div>
+    <section class="mt-9" aria-labelledby="playlist-title">
+     <h2 id="playlist-title" data-template-id="playlist-label" class="canva-text mb-3 px-3 text-xs uppercase tracking-[.18em]" style="color: rgb(169, 156, 198); font-weight: 700; font-style: normal; font-size: 23px;">Playlist Kamu</h2>
+     <div class="space-y-1"><a class="pl-link" href="koleksi.html#senja-elektrik">Senja Elektrik</a><a class="pl-link" href="koleksi.html#ruang-hening">Ruang Hening</a><a class="pl-link" href="koleksi.html#pukul-2-pagi">Pukul 2 Pagi</a></div>
+    </section>
+    <div data-template-id="sidebar-promo" class="canva-panel mt-auto rounded-2xl p-4" style="background: linear-gradient(135deg, rgb(85, 52, 129), rgb(43, 27, 82));"><i data-lucide="sparkles" class="mb-3 w-5 h-5 text-fuchsia-200"></i>
+     <p data-template-id="promo-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 15px;">Ruang dengar tanpa batas</p>
+     <p data-template-id="promo-copy" class="canva-text mt-1 text-xs leading-relaxed" style="color: rgb(217, 197, 255); font-weight: 400; font-style: normal; font-size: 15px;">Temukan ritme yang menyesuaikan malam kamu.</p>
+    </div>
+   </aside>
+   <main class="main-area w-full lg:ml-[248px]">
+    <div class="mx-auto w-full max-w-[1480px] px-5 py-5 sm:px-8">
+     <header class="flex flex-wrap items-center justify-between gap-4 py-2"><label class="relative block w-full max-w-md"> <span class="sr-only">Cari lagu, artis, atau album</span> <i data-lucide="search" class="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-violet-200/60"></i> <input id="search" data-template-id="search-input" class="canva-input w-full rounded-2xl border border-white/10 bg-white/5 py-3 pl-11 pr-4 text-sm text-white placeholder:text-violet-100/45 focus:border-violet-300/60 focus:bg-white/10" type="search" placeholder="Cari lagu, artis, atau album..." style="font-weight: 400; font-style: normal; font-size: 15px;"> </label>
+      <div data-template-id="profile-chip" class="canva-tag flex items-center gap-2 rounded-full px-3 py-2 text-sm" style="background: rgba(255, 255, 255, 0.08);"><span class="grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-fuchsia-300 to-violet-500 font-bold text-[#261244]">N</span> <span data-template-id="profile-name" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 15px;">Nadia</span>
+      </div>
+     </header>
+     <nav class="desktop-tabs mt-6 flex gap-3" aria-label="Kategori musik"><a class="tab-link" href="index.html">Untuk Anda</a><a class="tab-link" href="jelajahi.html#terbaru">Terbaru</a><a class="tab-link" href="video-musik.html">Video Musik</a></nav>
+     <section id="senja-elektrik" class="mt-10 scroll-mt-6"><h2 class="page-title">Senja Elektrik</h2><p class="page-sub">Synth hangat untuk sore hari.</p><div class="mt-4"><div class="row-track"><span class="no">1</span><span><b>Neon Drift</b><small>Nara Vale</small></span><span class="dur">3:48</span></div><div class="row-track"><span class="no">2</span><span><b>Velvet Signals</b><small>Eka Rumi</small></span><span class="dur">4:05</span></div><div class="row-track"><span class="no">3</span><span><b>Orbiting You</b><small>Aira Sol</small></span><span class="dur">3:31</span></div><div class="row-track"><span class="no">4</span><span><b>Prism Hours</b><small>Mika Aster</small></span><span class="dur">4:22</span></div></div></section><section id="ruang-hening" class="mt-10 scroll-mt-6"><h2 class="page-title">Ruang Hening</h2><p class="page-sub">Tenang untuk fokus dan bernapas.</p><div class="mt-4"><div class="row-track"><span class="no">1</span><span><b>Prism Hours</b><small>Mika Aster</small></span><span class="dur">4:22</span></div><div class="row-track"><span class="no">2</span><span><b>Orbiting You</b><small>Aira Sol</small></span><span class="dur">3:31</span></div><div class="row-track"><span class="no">3</span><span><b>Velvet Signals</b><small>Eka Rumi</small></span><span class="dur">4:05</span></div><div class="row-track"><span class="no">4</span><span><b>Neon Drift</b><small>Nara Vale</small></span><span class="dur">3:48</span></div></div></section><section id="pukul-2-pagi" class="mt-10 scroll-mt-6"><h2 class="page-title">Pukul 2 Pagi</h2><p class="page-sub">Teman begadang dan ide larut malam.</p><div class="mt-4"><div class="row-track"><span class="no">1</span><span><b>Velvet Signals</b><small>Eka Rumi</small></span><span class="dur">4:05</span></div><div class="row-track"><span class="no">2</span><span><b>Orbiting You</b><small>Aira Sol</small></span><span class="dur">3:31</span></div><div class="row-track"><span class="no">3</span><span><b>Prism Hours</b><small>Mika Aster</small></span><span class="dur">4:22</span></div><div class="row-track"><span class="no">4</span><span><b>Neon Drift</b><small>Nara Vale</small></span><span class="dur">3:48</span></div></div></section>
+     </div>
+   </main>
+   <footer class="glass fixed bottom-0 left-0 z-40 w-full border-x-0 border-b-0 px-4 py-3 sm:px-7">
+    <div class="player-inner mx-auto grid max-w-[1450px] grid-cols-[1fr_auto_1fr] items-center gap-5">
+     <div class="flex min-w-0 items-center gap-3">
+      <img id="playerArtwork" data-template-id="player-artwork" loading="lazy" class="canva-image h-12 w-12 rounded-xl object-cover" src="https://images.pexels.com/photos/3075993/pexels-photo-3075993.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Pemandangan kota malam bercahaya di bawah langit berbintang">
+      <div class="min-w-0">
+       <p id="playerSong" class="truncate text-sm font-bold">Neon Drift</p>
+       <p id="playerArtist" class="truncate text-xs text-violet-200/70">Nara Vale</p>
+      </div><button id="playerLike" type="button" class="ml-1 text-violet-100/70 hover:text-fuchsia-200" aria-label="Sukai lagu"><i data-lucide="heart" class="heart-icon h-4 w-4"></i></button>
+     </div>
+     <div class="flex flex-col items-center gap-2">
+      <div class="flex items-center gap-4">
+       <button id="previousButton" class="control-button" type="button" aria-label="Lagu sebelumnya"><i data-lucide="skip-back" class="h-4 w-4 fill-current"></i></button><button id="mainPlay" type="button" class="control-button grid h-10 w-10 place-items-center rounded-full bg-white text-[#4b2470]" aria-label="Putar atau jeda"><i data-lucide="play" class="play-icon h-4 w-4 fill-current"></i><i data-lucide="pause" class="pause-icon hidden h-4 w-4 fill-current"></i></button><button id="nextButton" class="control-button" type="button" aria-label="Lagu berikutnya"><i data-lucide="skip-forward" class="h-4 w-4 fill-current"></i></button>
+      </div>
+      <div class="flex w-[200px] items-center gap-2 text-[10px] text-violet-200/65">
+       <span id="elapsed">0:42</span>
+       <div id="progressTrack" class="progress-track h-1.5 flex-1 overflow-hidden rounded-full bg-white/15" role="slider" aria-label="Posisi lagu" aria-valuemin="0" aria-valuemax="100" aria-valuenow="22" tabindex="0">
+        <div id="progressFill" class="progress-fill h-full rounded-full bg-gradient-to-r from-fuchsia-300 to-violet-400"></div>
+       </div><span id="total">3:48</span>
+      </div>
+     </div>
+     <div class="player-extra flex justify-end gap-3">
+      <button id="muteBtn" type="button" class="control-button" aria-label="Bisukan suara"><i data-lucide="volume-2" class="h-4 w-4 text-violet-200/75"></i></button><label class="sr-only" for="volume">Volume</label><input id="volume" type="range" min="0" max="100" value="72" class="w-24"><button id="queueBtn" type="button" aria-label="Buka antrean" aria-expanded="false" class="control-button"><i data-lucide="list-music" class="h-5 w-5"></i></button>
+     </div>
+    </div>
+   </footer>
+   <nav class="mobile-nav glass fixed bottom-[88px] left-1/2 z-30 hidden w-[calc(100%-32px)] -translate-x-1/2 items-center justify-around rounded-2xl px-3 py-2" aria-label="Navigasi seluler"><a href="index.html" class="mnav" aria-label="Beranda"><i data-lucide="home" class="h-5 w-5"></i></a><a href="jelajahi.html" class="mnav" aria-label="Jelajahi"><i data-lucide="compass" class="h-5 w-5"></i></a><a href="koleksi.html" class="mnav" aria-label="Koleksi"><i data-lucide="library" class="h-5 w-5"></i></a><a href="video-musik.html" class="mnav" aria-label="Video Musik"><i data-lucide="clapperboard" class="h-5 w-5"></i></a>
+   </nav>
+   <div id="notice" class="notice fixed bottom-36 left-1/2 z-50 -translate-x-1/2 rounded-full border border-white/15 bg-[#3c2163] px-4 py-2 text-sm shadow-xl" role="status"></div>
   </div>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      lucide.createIcons();
-      let playing = false, liked = false, progress = 22, timer;
-      const visualizer = document.getElementById("visualizer");
-      const fill = document.getElementById("progressFill");
-      const elapsed = document.getElementById("elapsed");
-      const notice = document.getElementById("notice");
-
-      function showNotice(message) {
-        notice.textContent = message; notice.classList.add("show");
-        clearTimeout(notice.hideTimer);
-        notice.hideTimer = setTimeout(() => notice.classList.remove("show"), 2400);
-      }
-      function renderPlayState() {
-        document.querySelectorAll(".play-icon").forEach(el => el.classList.toggle("hidden", playing));
-        document.querySelectorAll(".pause-icon").forEach(el => el.classList.toggle("hidden", !playing));
-        visualizer?.classList.toggle("is-playing", playing);
-        document.getElementById("heroPlay")?.setAttribute("aria-label", playing ? "Jeda musik" : "Putar musik");
-      }
-      function togglePlay() {
-        playing = !playing; renderPlayState();
-        clearInterval(timer);
-        if (playing) timer = setInterval(() => {
-          progress = progress >= 100 ? 0 : progress + 0.25;
-          updateProgress();
-        }, 1000);
-      }
-      function updateProgress() {
-        fill.style.width = progress + "%";
-        document.getElementById("progressTrack").setAttribute("aria-valuenow", Math.round(progress));
-        const seconds = Math.floor(228 * progress / 100);
-        elapsed.textContent = Math.floor(seconds / 60) + ":" + String(seconds % 60).padStart(2, "0");
-      }
-      function toggleLike() {
-        liked = !liked;
-        document.querySelectorAll(".heart-icon").forEach(icon => {
-          icon.classList.toggle("fill-current", liked);
-          icon.classList.toggle("text-fuchsia-300", liked);
-        });
-        showNotice(liked ? "Ditambahkan ke lagu favorit" : "Dihapus dari lagu favorit");
-      }
-      document.getElementById("heroPlay")?.addEventListener("click", togglePlay);
-      document.getElementById("mainPlay").addEventListener("click", togglePlay);
-      document.getElementById("heroLike")?.addEventListener("click", toggleLike);
-      document.getElementById("playerLike").addEventListener("click", toggleLike);
-      document.getElementById("shareButton")?.addEventListener("click", async () => {
-        try { await navigator.clipboard.writeText("Midnight Echoes — Nara Vale | LumaWave"); showNotice("Judul lagu disalin ke clipboard"); }
-        catch { showNotice("Siap dibagikan: Midnight Echoes — Nara Vale"); }
-      });
-      function setProgressFromEvent(event) {
-        const rect = event.currentTarget.getBoundingClientRect();
-        progress = Math.max(0, Math.min(100, ((event.clientX - rect.left) / rect.width) * 100));
-        updateProgress();
-      }
-      const progressTrack = document.getElementById("progressTrack");
-      progressTrack.addEventListener("click", setProgressFromEvent);
-      progressTrack.addEventListener("keydown", (event) => {
-        if (event.key === "ArrowRight" || event.key === "ArrowUp") { progress = Math.min(100, progress + 5); updateProgress(); event.preventDefault(); }
-        if (event.key === "ArrowLeft" || event.key === "ArrowDown") { progress = Math.max(0, progress - 5); updateProgress(); event.preventDefault(); }
-      });
-      document.getElementById("previousButton").addEventListener("click", () => { progress = 0; updateProgress(); showNotice("Kembali ke awal lagu"); });
-      document.getElementById("nextButton").addEventListener("click", () => { progress = 0; updateProgress(); showNotice("Lagu berikutnya dipilih"); });
-      document.querySelectorAll(".album-card").forEach(card => card.addEventListener("click", () => {
-        document.querySelectorAll(".album-card").forEach(item => item.classList.remove("active"));
-        card.classList.add("active");
-        document.getElementById("playerSong").textContent = card.dataset.song;
-        document.getElementById("playerArtist").textContent = card.dataset.artist;
-        const source = card.querySelector("img").getAttribute("src");
-        if (source) document.getElementById("playerArtwork").setAttribute("src", source);
-        progress = 0; updateProgress();
-        if (!playing) togglePlay();
-        showNotice(card.dataset.song + " sedang diputar");
-      }));
-    });
-  </script>
-
-  <script>
-    (function () {
-      var p = location.pathname.split('/').pop() || 'index.html', h = location.hash;
-      document.querySelectorAll('.nav-item,.tab-link,.mnav').forEach(function (a) {
-        var u = a.getAttribute('href').split('#');
-        if (u[0] === p && (!u[1] || '#' + u[1] === h)) a.setAttribute('aria-current', 'page');
-      });
-    })();
-  </script>
-</body>
-
-</html>
+<script src="app.js"></script>
+</body></html>
